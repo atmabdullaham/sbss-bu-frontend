@@ -1,13 +1,17 @@
+import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SocialLogin = () => {
   const { signInGoogle } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
   const location = useLocation();
   const navigate = useNavigate();
-  const handleGoogleSignIn = () => {
-    signInGoogle().then((result) => {
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInGoogle();
       console.log(result.user);
       const userInfo = {
         email: result.user.email,
@@ -16,18 +20,28 @@ const SocialLogin = () => {
       };
       console.log(userInfo);
 
-      // create user in the daabase
-      // axiosSecure.post("/users", userInfo).then((res) => {
-      //   if (res.data.insertedId) {
-      //     console.log("user created in the database");
-      //   }
-      //   navigate(location.state || "/");
-      //   console.log(res.data.message);
-      // });
-    });
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+      // Get the ID token immediately from the sign-in result
+      // (don't wait for context to update, which is async)
+      const idToken = await result.user.getIdToken();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      };
+
+      const res = await axiosSecure.post("/users", userInfo, config);
+      if (res.data.insertedId) {
+        console.log("user created in the database");
+      }
+      console.log(res.data.message);
+      navigate(location.state || "/");
+      toast.success("Login successful");
+    } catch (err) {
+      console.log(err);
+      toast.error(
+        "Login failed: " + (err?.response?.data?.message || err?.message),
+      );
+    }
   };
   return (
     <div>

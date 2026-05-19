@@ -1,5 +1,5 @@
-import toast from "daisyui/components/toast";
 import { useContext } from "react";
+import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import Logo from "./Logo";
