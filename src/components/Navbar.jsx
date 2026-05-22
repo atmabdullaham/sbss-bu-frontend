@@ -30,7 +30,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/activities"
+          to="/programmes"
           className={({ isActive, isPending }) =>
             isPending
               ? "pending"
@@ -39,7 +39,21 @@ const Navbar = () => {
                 : "hover:text-[#000000]"
           }
         >
-          কার্যক্রম
+          প্রোগ্রামসমূহ
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/registration-success"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+                ? "text-[#000000] border-[#ff1e1e] font-bold animated-border" /* Apply the animated-border class when active */
+                : "hover:text-[#000000]"
+          }
+        >
+          আমার রেজিস্ট্রেশন
         </NavLink>
       </li>
 
@@ -78,7 +92,7 @@ const Navbar = () => {
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -102,9 +116,12 @@ const Navbar = () => {
             {navOptions}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
+        <Link
+          to={"/"}
+          className="btn btn-ghost bg-transparent hover:border-0 border-0 text-xl"
+        >
           <Logo />
-        </a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navOptions}</ul>

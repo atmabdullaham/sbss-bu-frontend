@@ -1,54 +1,118 @@
+import { Link } from "react-router-dom";
 import Logo from "./Logo";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  const footerLinks = [
+    { label: "হোম", href: "/" },
+    { label: "প্রোগ্রামসমূহ", href: "/programmes" },
+    { label: "পরিচিতি", href: "/about" },
+    { label: "যোগাযোগ", href: "/contact" },
+  ];
+
   return (
-    <footer className="footer footer-horizontal footer-center bg-primary text-primary-content p-10">
-      <aside>
-        <Logo />
-        <p className="font-bold">
-          সাবেক বর্তমান সাথী সদস্য
-          <br />
-          বাঁশখালী উপজেলা
-        </p>
-        <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
-      </aside>
-      <nav>
-        <div className="grid grid-flow-col gap-4">
-          <a>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              className="fill-current"
-            >
-              <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
-            </svg>
-          </a>
-          <a>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              className="fill-current"
-            >
-              <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
-            </svg>
-          </a>
-          <a>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              className="fill-current"
-            >
-              <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
-            </svg>
-          </a>
+    <footer className="border-t-4 border-t-[#5b7bb8] bg-linear-to-b from-slate-950 to-slate-900 text-slate-100">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        {/* Main Footer Content */}
+        <div className="grid gap-10 md:grid-cols-3">
+          {/* Brand Section */}
+          <div className="space-y-4 text-center md:text-left">
+            <div className="flex justify-center md:justify-start">
+              <div className="inline-flex rounded-3xl bg-white px-4 py-3 shadow-lg">
+                <Logo size="sm" />
+              </div>
+            </div>
+            <p className="mx-auto max-w-xs text-sm leading-6 text-slate-400 md:mx-0">
+              সাবেক বর্তমান সাথী সদস্য
+            </p>
+            <p className="text-xs text-slate-500">বাঁশখালী উপজেলা, চট্টগ্রাম</p>
+          </div>
+
+          {/* Quick Links */}
+          <div className="text-center md:text-left">
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.25em] text-white">
+              লিঙ্ক
+            </h3>
+            <ul className="space-y-3">
+              {footerLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    to={link.href}
+                    className="text-sm text-slate-400 transition-colors hover:text-[#5b7bb8]"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div className="text-center md:text-left">
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.25em] text-white">
+              যোগাযোগ করুন
+            </h3>
+            <ul className="space-y-3 text-sm text-slate-400">
+              <li className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 text-[#f78839]">📞</span>
+                  <div>
+                    <p className="font-semibold text-slate-100">সিরাজী মানিক</p>
+                    <a
+                      href="tel:01855003073"
+                      className="mt-1 block transition-colors hover:text-white"
+                    >
+                      01855003073
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 text-[#f78839]">📞</span>
+                  <div>
+                    <p className="font-semibold text-slate-100">আমির উদ্দিন</p>
+                    <a
+                      href="tel:01879260148"
+                      className="mt-1 block transition-colors hover:text-white"
+                    >
+                      01879-260148
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 text-[#5b7bb8]">📍</span>
+                  <div>
+                    <p className="font-semibold text-slate-100">অবস্থান</p>
+                    <span className="mt-1 block">বাঁশখালী, চট্টগ্রাম</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-      </nav>
+
+        {/* Divider */}
+        <div className="mt-10 border-t border-white/10 pt-8">
+          {/* Bottom Copyright */}
+          <div className="flex flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left">
+            <p className="text-sm text-slate-400">
+              Copyright © {currentYear} SBSSBU. সকল অধিকার সংরক্ষিত।
+            </p>
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-slate-400">
+              <a href="#" className="transition-colors hover:text-[#5b7bb8]">
+                গোপনীয়তা নীতি
+              </a>
+              <a href="#" className="transition-colors hover:text-[#f78839]">
+                শর্তাবলী
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </footer>
   );
 };

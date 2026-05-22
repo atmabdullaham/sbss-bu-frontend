@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosPublic = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: import.meta.env.VITE_serverUrl,
 });
 
 const useAxiosPublic = () => {
@@ -9,3 +9,5 @@ const useAxiosPublic = () => {
 };
 
 export default useAxiosPublic;
+
+// https://mediumpurple-bison-837194.hostingersite.com
