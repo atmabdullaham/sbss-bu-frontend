@@ -18,7 +18,8 @@ const RegistrationSuccess = () => {
   const [downloading, setDownloading] = useState(false);
   const resultCardRef = useRef(null);
   const [registrationData, setRegistrationData] = useState(null);
-  const whatsappLink = "https://chat.whatsapp.com/FLbWhnQGNk2L33Fvrvjn6l";
+  const whatsappLink =
+    "https://chat.whatsapp.com/DbL92AK2AVHCrZe3XoG33A?s=sh&p=a&mlu=1";
 
   useEffect(() => {
     // Retrieve registration data from localStorage

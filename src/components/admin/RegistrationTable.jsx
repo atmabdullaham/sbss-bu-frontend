@@ -12,6 +12,8 @@ const RegistrationTable = ({ status }) => {
 
   const [searchTransactionId, setSearchTransactionId] = useState("");
   const [searchSendmoneyNumber, setSearchSendmoneyNumber] = useState("");
+  const [appliedTransactionId, setAppliedTransactionId] = useState("");
+  const [appliedSendmoneyNumber, setAppliedSendmoneyNumber] = useState("");
   const [isUpdating, setIsUpdating] = useState(null);
   const [isDeleting, setIsDeleting] = useState(null);
 
@@ -24,16 +26,16 @@ const RegistrationTable = ({ status }) => {
       "admin",
       "registrations",
       status,
-      searchTransactionId,
-      searchSendmoneyNumber,
+      appliedTransactionId,
+      appliedSendmoneyNumber,
       user?.email,
     ],
     queryFn: async () => {
       const params = new URLSearchParams();
-      if (searchTransactionId)
-        params.append("transaction_id", searchTransactionId);
-      if (searchSendmoneyNumber)
-        params.append("sendmoney_number", searchSendmoneyNumber);
+      if (appliedTransactionId)
+        params.append("transaction_id", appliedTransactionId);
+      if (appliedSendmoneyNumber)
+        params.append("sendmoney_number", appliedSendmoneyNumber);
 
       const res = await axiosSecure.get(
         `/admin/registrations/${status}?${params}`,
@@ -42,6 +44,11 @@ const RegistrationTable = ({ status }) => {
     },
     enabled: !!user?.email,
   });
+
+  const handleSearch = () => {
+    setAppliedTransactionId(searchTransactionId);
+    setAppliedSendmoneyNumber(searchSendmoneyNumber);
+  };
 
   const handleStatusChange = async (registrationId, newStatus) => {
     try {
@@ -130,6 +137,24 @@ const RegistrationTable = ({ status }) => {
             className="input input-bordered w-full"
           />
         </div>
+      </div>
+
+      {/* Search Button */}
+      <div className="flex gap-2">
+        <button onClick={handleSearch} className="btn btn-primary">
+          Search
+        </button>
+        <button
+          onClick={() => {
+            setSearchTransactionId("");
+            setSearchSendmoneyNumber("");
+            setAppliedTransactionId("");
+            setAppliedSendmoneyNumber("");
+          }}
+          className="btn btn-outline"
+        >
+          Clear
+        </button>
       </div>
 
       {/* Result Count */}

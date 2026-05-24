@@ -19,7 +19,17 @@ const DashboardStatistics = () => {
     enabled: !!user?.email,
   });
 
-  if (isLoading) {
+  // Accepted-only statistics for t-shirt size, permanent union, combined stats, and member/associate
+  const { data: acceptedStats, isLoading: acceptedStatsLoading } = useQuery({
+    queryKey: ["admin", "statistics", "accepted", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/admin/statistics?status=accepted");
+      return res.data?.data;
+    },
+    enabled: !!user?.email,
+  });
+
+  if (isLoading || acceptedStatsLoading) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="loading loading-spinner loading-lg"></div>
@@ -71,20 +81,18 @@ const DashboardStatistics = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
           <h3 className="text-lg font-semibold text-blue-900 mb-4">
-            সবেক (Sabek) vs বর্তমান (Bortoman)
+            সাবেক/বর্তমান
           </h3>
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-blue-700 font-medium">সবেক (Sabek)</span>
+              <span className="text-blue-700 font-medium">সাবেক</span>
               <span className="text-2xl font-bold text-blue-600">
                 {stats.sabek}
               </span>
             </div>
             <div className="divider my-2"></div>
             <div className="flex justify-between items-center">
-              <span className="text-blue-700 font-medium">
-                বর্তমান (Bortoman)
-              </span>
+              <span className="text-blue-700 font-medium">বর্তমান</span>
               <span className="text-2xl font-bold text-blue-600">
                 {stats.bortoman}
               </span>
@@ -95,24 +103,20 @@ const DashboardStatistics = () => {
         {/* Member & Associate */}
         <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border border-purple-200">
           <h3 className="text-lg font-semibold text-purple-900 mb-4">
-            সদস্য (Member) vs সহযোগী (Associate)
+            সদস্য/সাথী
           </h3>
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-purple-700 font-medium">
-                সদস্য (Member)
-              </span>
+              <span className="text-purple-700 font-medium">সদস্য</span>
               <span className="text-2xl font-bold text-purple-600">
-                {stats.member}
+                {acceptedStats?.member || 0}
               </span>
             </div>
             <div className="divider my-2"></div>
             <div className="flex justify-between items-center">
-              <span className="text-purple-700 font-medium">
-                সহযোগী (Associate)
-              </span>
+              <span className="text-purple-700 font-medium">সাথী</span>
               <span className="text-2xl font-bold text-purple-600">
-                {stats.associate}
+                {acceptedStats?.associate || 0}
               </span>
             </div>
           </div>
@@ -122,24 +126,24 @@ const DashboardStatistics = () => {
       {/* Combined Statistics */}
       <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
         <h3 className="text-lg font-semibold text-green-900 mb-4">
-          সম্মিলিত পরিসংখ্যান (Combined Statistics)
+          সম্মিলিত পরিসংখ্যান
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <CombinedStatCard
-            label="সবেক + সদস্য"
-            value={stats.combined.sabek_member}
+            label="সাবেক সদস্য"
+            value={acceptedStats?.combined?.sabek_member || 0}
           />
           <CombinedStatCard
-            label="সবেক + সহযোগী"
-            value={stats.combined.sabek_associate}
+            label="সাবেক সাথী"
+            value={acceptedStats?.combined?.sabek_associate || 0}
           />
           <CombinedStatCard
-            label="বর্তমান + সদস্য"
-            value={stats.combined.bortoman_member}
+            label="বর্তমান সদস্য"
+            value={acceptedStats?.combined?.bortoman_member || 0}
           />
           <CombinedStatCard
-            label="বর্তমান + সহযোগী"
-            value={stats.combined.bortoman_associate}
+            label="বর্তমান সাথী"
+            value={acceptedStats?.combined?.bortoman_associate || 0}
           />
         </div>
       </div>
@@ -147,20 +151,51 @@ const DashboardStatistics = () => {
       {/* Permanent Union Breakdown */}
       <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          স্থায়ী ইউনিয়ন ভাঙ্গন (Permanent Union Breakdown)
+          স্থায়ী ইউনিয়ন
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {Object.entries(stats.permanentUnionCounts).map(([union, count]) => (
-            <div
-              key={union}
-              className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition"
-            >
-              <p className="text-gray-600 text-sm capitalize">{union}</p>
-              <p className="text-2xl font-bold text-gray-900">{count}</p>
-            </div>
-          ))}
+          {acceptedStats?.permanentUnionCounts &&
+            Object.entries(acceptedStats.permanentUnionCounts).map(
+              ([union, count]) => (
+                <div
+                  key={union}
+                  className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition"
+                >
+                  <p className="text-gray-600 text-sm capitalize">{union}</p>
+                  <p className="text-2xl font-bold text-gray-900">{count}</p>
+                </div>
+              ),
+            )}
         </div>
       </div>
+
+      {/* T-Shirt Size Breakdown */}
+      {acceptedStats?.tshirtSizeCounts &&
+        Object.keys(acceptedStats.tshirtSizeCounts).length > 0 && (
+          <div className="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
+            <h3 className="text-lg font-semibold text-indigo-900 mb-4">
+              টি-শার্ট সাইজ
+              {`${acceptedStats.tshirtSizeCounts.total ? `(Total: ${acceptedStats.tshirtSizeCounts.total})` : ""}`}
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {Object.entries(acceptedStats.tshirtSizeCounts).map(
+                ([size, count]) => (
+                  <div
+                    key={size}
+                    className="bg-white p-4 rounded-lg border border-indigo-300 hover:shadow-md transition text-center"
+                  >
+                    <p className="text-indigo-600 text-sm font-semibold mb-2 uppercase">
+                      {size}
+                    </p>
+                    <p className="text-3xl font-bold text-indigo-900">
+                      {count}
+                    </p>
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+        )}
     </div>
   );
 };
