@@ -12,7 +12,7 @@ const toBanglaNumber = (number) => {
 };
 
 const RegistrationTimer = () => {
-  const [enrollmentEnd] = useState(new Date("2026-05-24T23:59:00"));
+  const [enrollmentEnd] = useState(new Date("2026-05-25T14:00:00"));
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -93,11 +93,14 @@ const RegistrationTimer = () => {
           <div className="text-gray-600 text-xs xs:text-sm sm:text-base space-y-1 px-1 xs:px-2">
             <div className="flex items-center gap-2">
               রেজিস্ট্রেশন শুরু:
-              <span className="text-black font-medium"> 20 মে, ২০২৬</span>
+              <span className="text-black font-medium"> ২০ মে, ২০২৬</span>
             </div>
             <div className="flex items-center gap-2">
               রেজিস্ট্রেশন শেষ:
-              <span className="text-black font-medium"> ২৪ মে, ২০২৬</span>
+              <span className="text-black font-medium">
+                {" "}
+                ২৫ মে, ২০২৬ দুপুর ২ টা
+              </span>
             </div>
           </div>
 
