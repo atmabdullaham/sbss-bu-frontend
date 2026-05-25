@@ -1,3 +1,5 @@
+import { ImageKitProvider } from "@imagekit/react";
+
 const Organizer = () => {
   const organizers = [
     {
@@ -28,7 +30,7 @@ const Organizer = () => {
       name: "সিরাজী মানিক",
       designation: "সেক্রেটারি, চট্টগ্রাম জেলা পশ্চিম",
       imageUrl:
-        "https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&q=80&w=1160",
+        "https://ik.imagekit.io/atm/IMG_20251208_131146412_3_vT54z8P65.jpg?updatedAt=1779233377928",
     },
   ];
 
@@ -48,6 +50,14 @@ const Organizer = () => {
           >
             <div className="sm:flex sm:justify-between sm:gap-4 lg:gap-6">
               <div className="sm:order-last sm:shrink-0">
+                <ImageKitProvider urlEndpoint="https://ik.imagekit.io/atm">
+                  <Image
+                    src={reg.imageUrl}
+                    width={40}
+                    height={30}
+                    alt="Image"
+                  />
+                </ImageKitProvider>
                 <img
                   alt={organizer.name}
                   src={organizer.imageUrl}
