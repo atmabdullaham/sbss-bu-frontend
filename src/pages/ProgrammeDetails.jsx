@@ -405,7 +405,7 @@ const ProgrammeDetails = () => {
               </dl>
 
               <Link
-                to="/registration"
+                to="/registerend"
                 className="mt-6 flex w-full items-center justify-center rounded-2xl px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition duration-200 hover:-translate-y-0.5 hover:shadow-xl sm:py-4 sm:text-base"
                 style={{ backgroundImage: buttonGradient }}
               >

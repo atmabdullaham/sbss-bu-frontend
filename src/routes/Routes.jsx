@@ -8,6 +8,7 @@ import Contact from "../pages/Contact";
 import Home from "../pages/Home";
 import Programme from "../pages/Programme";
 import ProgrammeDetails from "../pages/ProgrammeDetails";
+import RegisterEnd from "../pages/RegisterEnd";
 import RegistrationSuccess from "../pages/RegistrationSuccess";
 
 export const router = createBrowserRouter([
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "/programmes",
         element: <Programme />,
+      },
+      {
+        path: "/registerend",
+        element: <RegisterEnd />,
       },
       {
         path: "/registration",

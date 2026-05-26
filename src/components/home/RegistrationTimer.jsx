@@ -106,7 +106,7 @@ const RegistrationTimer = () => {
 
           {/* Button */}
           <Link
-            to={"/registration"}
+            to={"/registerend"}
             className="mt-2 sm:mt-4 w-full sm:w-auto text-center"
           >
             <button className="bg-[#0AA76B] hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200 shadow-sm">

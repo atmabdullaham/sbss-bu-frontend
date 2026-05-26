@@ -129,7 +129,7 @@ const Navbar = () => {
       <div className="navbar-end">
         <NavLink
           className="btn btn-sm rounded-full text-black mr-2 bg-white shadow-inner"
-          to="/registration"
+          to="/registerend"
         >
           রেজিস্ট্রেশন
         </NavLink>
