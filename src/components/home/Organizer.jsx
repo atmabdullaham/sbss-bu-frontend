@@ -1,24 +1,22 @@
-import { ImageKitProvider } from "@imagekit/react";
+import { Image } from "@imagekit/react";
 
 const Organizer = () => {
   const organizers = [
     {
       name: "তানজীর হোসেন জুয়েল",
       designation: "কেন্দ্রীয় তথ্য ও মানবাধিকার সম্পাদক",
-      imageUrl:
-        "https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&q=80&w=1160", // Placeholder image
+      imageUrl: "https://ik.imagekit.io/atm/juel.jpg", // Placeholder image
     },
     {
       name: "মুমিনুল হক",
       designation: "সভাপতি, চট্টগ্রাম মহানগর উত্তর",
-      imageUrl:
-        "https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&q=80&w=1160",
+      imageUrl: "https://ik.imagekit.io/atm/momin.jpg",
     },
     {
       name: "মাইমুনুল ইসলাম মামুন",
       designation: "সভাপতি, চট্টগ্রাম মহানগর দক্ষিণ",
       imageUrl:
-        "https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&q=80&w=1160",
+        "https://ik.imagekit.io/atm/FB_IMG_1779467772895_SZcH12ssA.jpg?updatedAt=1779468065938",
     },
     {
       name: "ফরমানুর রহমান জাহিন",
@@ -29,8 +27,7 @@ const Organizer = () => {
     {
       name: "সিরাজী মানিক",
       designation: "সেক্রেটারি, চট্টগ্রাম জেলা পশ্চিম",
-      imageUrl:
-        "https://ik.imagekit.io/atm/IMG_20251208_131146412_3_vT54z8P65.jpg?updatedAt=1779233377928",
+      imageUrl: "https://ik.imagekit.io/atm/siraji.jpg",
     },
   ];
 
@@ -49,19 +46,14 @@ const Organizer = () => {
             className="block rounded-md border border-gray-300 p-4 shadow-sm sm:p-6"
           >
             <div className="sm:flex sm:justify-between sm:gap-4 lg:gap-6">
-              <div className="sm:order-last sm:shrink-0">
-                <ImageKitProvider urlEndpoint="https://ik.imagekit.io/atm">
-                  <Image
-                    src={reg.imageUrl}
-                    width={40}
-                    height={30}
-                    alt="Image"
-                  />
-                </ImageKitProvider>
-                <img
-                  alt={organizer.name}
+              <div className="sm:order-last sm:shrink-0 ">
+                <Image
+                  urlEndpoint="https://ik.imagekit.io/atm"
                   src={organizer.imageUrl}
-                  className="size-16 rounded-full object-cover sm:size-18"
+                  width={80}
+                  height={80}
+                  className="h-16 w-16 rounded-full object-cover"
+                  alt="Picture of the author"
                 />
               </div>
 
