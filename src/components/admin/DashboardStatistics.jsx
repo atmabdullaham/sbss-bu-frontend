@@ -150,9 +150,7 @@ const DashboardStatistics = () => {
 
       {/* Permanent Union Breakdown */}
       <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          স্থায়ী ইউনিয়ন
-        </h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">ইউনিয়ন</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {acceptedStats?.permanentUnionCounts &&
             Object.entries(acceptedStats.permanentUnionCounts).map(
